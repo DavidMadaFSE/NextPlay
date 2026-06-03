@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import com.david.nextplay.dto.library.AddLibraryEntryRequest;
 import com.david.nextplay.dto.library.LibraryEntryResponse;
-import com.david.nextplay.dto.library.UpdateGameStatusRequest;
 import com.david.nextplay.entity.Game;
 import com.david.nextplay.entity.LibraryEntry;
 import com.david.nextplay.entity.User;
