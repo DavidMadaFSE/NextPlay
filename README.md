@@ -2,7 +2,7 @@
 
 NextPlay is a Spring Boot backend for a game discovery and recommendation platform.
 
-The goal of this project is to help users browse games, search and filter game data, save games to a personal library, track game progress, and eventually receive personalized recommendations based on ratings, reviews, genres, platforms, and user activity.
+The goal of this project is to help users browse games, search and filter game data, save games to a personal library, track game progress, write reviews, and receive personalized game recommendations based on genres, platforms, ratings, library activity, and user reviews.
 
 This project is being built step-by-step while relearning and practicing Spring Boot backend development.
 
@@ -20,10 +20,12 @@ The final goal of NextPlay is to become a full backend platform where users can:
 - Save games to a personal library
 - Track games as want to play, playing, completed, or dropped
 - Rate and review games
+- View reviews for games
+- View their own reviews
 - Receive personalized game recommendations
 - View trending and top-rated games
 
-Admin users will eventually be able to:
+Admin users can eventually be able to:
 
 - Add games
 - Update games
@@ -84,6 +86,26 @@ Completed so far:
 - Added custom exception handling for authentication and library features
 - Tested all Week 3 endpoints using Postman
 
+### Week 4 Complete
+
+The Week 4 goal was to add game reviews and begin building the recommendation system.
+
+Completed so far:
+
+- Added review creation for games
+- Required users to be authenticated before creating reviews
+- Required games to exist before they can be reviewed
+- Required games to be in the user's library before creating a review
+- Prevented users from reviewing the same game more than once
+- Added review updates for the authenticated user's own reviews
+- Added review deletion for the authenticated user's own reviews
+- Added paginated review results for a specific game
+- Added paginated review results for the logged-in user
+- Added automatic average rating updates when reviews are created, updated, or deleted
+- Added transaction handling for review-related database operations
+- Added recommendation logic for suggesting games to users
+- Tested review and recommendation endpoints using Postman
+
 ---
 
 ## Core Features Implemented
@@ -99,8 +121,15 @@ Completed so far:
 - Spring Security authentication
 - JWT token generation and validation
 - Protected routes
+- Role-based protection for admin game management
 - Personal user game library
 - Game status tracking
+- Review creation, updating, and deletion
+- Paginated game reviews
+- Paginated user reviews
+- Average game rating calculation
+- Basic personalized game recommendations
+- Transaction handling in the service layer
 
 ---
 
@@ -194,6 +223,13 @@ Current testing includes:
 - Adding games to a user's library
 - Updating a game's library status
 - Removing games from a user's library
+- Creating game reviews
+- Updating game reviews
+- Deleting game reviews
+- Retrieving reviews for a game
+- Retrieving reviews for the logged-in user
+- Confirming average game ratings update after review changes
+- Testing recommendation results
 - Confirming validation behavior
 - Confirming error handling behavior
 
@@ -254,19 +290,82 @@ During Week 3, I practiced:
 
 ---
 
+## What I Learned in Week 4
+
+During Week 4, I practiced:
+
+- Creating review-related API endpoints
+- Designing nested REST routes such as `/api/games/{gameId}/reviews`
+- Separating review logic into a dedicated review controller and service
+- Protecting review creation, update, and delete routes
+- Making sure users can only update and delete their own reviews
+- Checking whether a game exists before creating a review
+- Checking whether a game is in the user's library before creating a review
+- Preventing duplicate reviews from the same user for the same game
+- Using pagination and sorting for review results
+- Updating a game's average rating after review changes
+- Using `@Transactional` for service methods that perform database changes
+- Building the first version of a recommendation service
+- Testing authenticated review and recommendation requests in Postman
+
+---
+
+## API Features
+
+Current API features include:
+
+```text
+Auth:
+POST   /api/auth/register
+POST   /api/auth/login
+```
+
+```text
+Games:
+GET    /api/games
+GET    /api/games/{id}
+POST   /api/games
+PUT    /api/games/{id}
+DELETE /api/games/{id}
+```
+
+```text
+Library:
+GET    /api/library
+POST   /api/library/{gameId}
+PATCH  /api/library/{id}
+DELETE /api/library/{id}
+```
+
+```text
+Reviews:
+POST   /api/games/{gameId}/reviews
+GET    /api/games/{gameId}/reviews
+GET    /api/users/me/reviews
+PATCH  /api/reviews/{reviewId}
+DELETE /api/reviews/{reviewId}
+```
+
+```text
+Recommendations:
+GET    /api/recommendations
+```
+
+---
+
 ## Future Features
 
 Planned future features include:
 
-- Reviews and ratings
-- Recommendation engine
-- Trending games
-- Top-rated games
-- Role-based authorization for admin users
-- Swagger/OpenAPI documentation
-- Unit and integration testing
-- Docker support
-- Frontend connection with React and TypeScript
+- Improve recommendation algorithm
+- Add weighted recommendation scoring
+- Add review moderation for admin users
+- Add trending games
+- Add top-rated games
+- Add Swagger/OpenAPI documentation
+- Add unit and integration testing
+- Add Docker support
+- Connect backend to a React and TypeScript frontend
 
 ---
 
@@ -288,8 +387,12 @@ Week 2 complete: The games API supports filtering, pagination, and sorting.
 Week 3 complete: User authentication, JWT security, protected routes, and the personal game library feature are working.
 ```
 
+```text
+Week 4 complete: Game reviews, average ratings, and the first version of personalized recommendations are working.
+```
+
 Next milestone:
 
 ```text
-Week 4 in progress: Users should be able to write reviews for games, and the backend should begin supporting game recommendations.
+Week 5 in progress: Improve the recommendation system, add testing, improve API documentation, and prepare the backend for frontend integration.
 ```
